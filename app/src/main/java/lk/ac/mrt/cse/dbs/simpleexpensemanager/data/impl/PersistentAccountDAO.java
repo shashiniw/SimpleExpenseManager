@@ -73,8 +73,8 @@ public class PersistentAccountDAO implements AccountDAO {
     public Account getAccount(String accountNo) throws InvalidAccountException {
         // Gets the data repository in read mode
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + dbHelper.ACCOUNT_TABLE_NAME + " WHERE " + dbHelper.ACCOUNT_NO_COLUMN_NAME +" = " + accountNo, null);
-
+        //Cursor cursor = db.rawQuery("SELECT * FROM " + dbHelper.ACCOUNT_TABLE_NAME + " WHERE " + dbHelper.ACCOUNT_NO_COLUMN_NAME +" = " + accountNo, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + dbHelper.ACCOUNT_TABLE_NAME + " WHERE " + dbHelper.ACCOUNT_NO_COLUMN_NAME +" = '" + accountNo +"'", null);
         if (cursor != null) {
             cursor.moveToFirst();
             String accountNum=cursor.getString(0);
