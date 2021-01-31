@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    //singleton variable
+    private static DatabaseHelper obj;
     //database parameters
     public static final String DB_NAME = "180718H.db";
     public static final int DB_VERSION = 1;
@@ -66,10 +68,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             )
     */
 
-    //constructor
-    public DatabaseHelper(@Nullable Context context) {
+    //constructor-private constructor as singleton pattern used to get instance
+    private DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+
+    //singleton testing
+    public static DatabaseHelper getInstance(Context context){
+        if (obj == null){
+            synchronized(DatabaseHelper.class){
+                if (obj == null){
+                    obj = new DatabaseHelper(context);//instance will be created at request time
+                }
+            }
+        }
+        return obj;
+    }
+
 
     //overriding methods inherited by super class
     @Override
